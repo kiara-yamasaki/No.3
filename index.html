@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>困った女</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .button {
+            background-color: transparent; /* 背景色を透明に */
+            color: inherit; /* 文章の色を継承 */
+            border: none; 
+            padding: 0; /* パディングを0に */
+            cursor: pointer; 
+            font-size: 16px;
+            text-decoration: none; /* 下線をなくす */
+        }
+        .story-button {
+            background-color: #4CAF50; /* 緑色の背景 */
+            color: white; /* 白い文字 */
+            padding: 10px 20px; /* パディングを追加 */
+            border: none; 
+            border-radius: 5px; /* 角を丸く */
+            cursor: pointer; 
+            font-size: 18px;
+            margin-top: 20px; /* 上部にマージンを追加 */
+        }
+        .story-button:hover {
+            background-color: #45a049; /* ホバー時の色 */
+        }
+        .answer-button {
+            background-color: #ff69b4; /* 緑色の背景 */
+            color: white; /* 白い文字 */
+            padding: 10px 20px; /* パディングを追加 */
+            border: none; 
+            border-radius: 5px; /* 角を丸く */
+            cursor: pointer; 
+            font-size: 18px;
+            margin-top: 20px; /* 上部にマージンを追加 */
+        }
+        .answer-button:hover {
+            background-color: #ff1493; /* ホバー時の色 */
+        }
+        .wrong-button {
+            background-color: #00bfff; /* 緑色の背景 */
+            color: white; /* 白い文字 */
+            padding: 10px 20px; /* パディングを追加 */
+            border: none; 
+            border-radius: 5px; /* 角を丸く */
+            cursor: pointer; 
+            font-size: 18px;
+            margin-top: 20px; /* 上部にマージンを追加 */
+        }
+        .wrong-button:hover {
+            background-color: #1e90ff; /* ホバー時の色 */
+        }
+        .back-button {
+            background-color: #a9a9a9; /* 緑色の背景 */
+            color: white; /* 白い文字 */
+            padding: 10px 20px; /* パディングを追加 */
+            border: none; 
+            border-radius: 5px; /* 角を丸く */
+            cursor: pointer; 
+            font-size: 18px;
+            margin-top: 20px; /* 上部にマージンを追加 */
+        }
+        .back-button:hover {
+            background-color: #808080; /* ホバー時の色 */
+        }
+        .hint-button {
+            background-color: #ffa500; /* 緑色の背景 */
+            color: white; /* 白い文字 */
+            padding: 10px 20px; /* パディングを追加 */
+            border: none; 
+            border-radius: 5px; /* 角を丸く */
+            cursor: pointer; 
+            font-size: 18px;
+            margin-top: 20px; /* 上部にマージンを追加 */
+        }
+        .hint-button:hover {
+            background-color: #ff8c00; /* ホバー時の色 */
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="container" id="main-container">
+    <h1><span style="font-size: 20px;">No.3</span><br>困った女</h1>
+    <p id="story"></p>
+    <button class="story-button" id="story-button" onclick="showStory()">ストーリーを表示</button>
+    <p>質問した回数: <span id="n-display" class="n-value" style="font-size: 30px; color: green;">0</span></p> <!-- Nの値を表示する要素 -->
+    <p>間違えた回数: <span id="m-display" class="m-value" style="font-size: 30px; color: green;">0</span></p> <!-- Mの値を表示する要素 -->
+    <button class="answer-button" id="answer-button" style="display: none;" onclick="answerInfo()">解説</button>
+    <button class="wrong-button" id="wrong-button" style="display: none;" onclick="showStory()">更新ボタン(質問回数、間違い回数の更新)</button>
+    <button class="story-button" id="solve-button" style="display: none;" onclick="solveInfo1()">回答する</button>
+    <button class="hint-button" id="hint-button" style="display: none;" onclick="hintInfo()">ヒント</button>
+    <button class="back-button" id="back-button" style="display: none;" onclick="goBackToMain()">戻る</button>
+</div>
+
+
+
+<div class="container" id="hint-container" style="display: none;">
+    <h1>女は身分証を見てあることに気づいたようです。</h1>
+    <button class="back-button" onclick="goBack()">初期画面へ戻る</button>
+</div>
+
+
+
+<div class="container" id="solve1" style="display: none;">
+    <h1>Q1.男の性格は？</h1>
+
+    <button class="button" onclick="solveInfo2Correct()">忘れっぽい</button><br>
+    <button class="button" onclick="solveInfo2()">怒りっぽい</button><br>
+    <button class="button" onclick="solveInfo2()">せっかち</button><br>
+    <button class="button" onclick="solveInfo2()">内弁慶</button><br>
+    <button class="button" onclick="solveInfo2()">家族想い</button><br>
+    <button class="button" onclick="solveInfo2()">さみしがり</button><br>
+    <button class="button" onclick="solveInfo2()">積極的</button><br>
+
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="solve2" style="display: none;">
+    <h1>Q2.女の対応はどうだった？</h1>
+
+    <button class="button" onclick="solveInfo3()">フレンドリー</button><br>
+    <button class="button" onclick="solveInfo3()">横柄</button><br>
+    <button class="button" onclick="solveInfo3()">雑</button><br>
+    <button class="button" onclick="solveInfo3()">遅い</button><br>
+    <button class="button" onclick="solveInfo3()">ミスが多い</button><br>
+    <button class="button" onclick="solveInfo3()">無口</button><br>
+    <button class="button" onclick="solveInfo3Correct()">丁寧</button><br>
+
+    <button class="back-button" onclick="goBackToSolve1()">戻る</button>
+</div>
+
+<div class="container" id="solve3" style="display: none;">
+    <h1>Q3.男の対応はどうだった？</h1>
+
+    <button class="button" onclick="solveInfo4()">フレンドリー</button><br>
+    <button class="button" onclick="solveInfo4()">横柄</button><br>
+    <button class="button" onclick="solveInfo4()">雑</button><br>
+    <button class="button" onclick="solveInfo4()">遅い</button><br>
+    <button class="button" onclick="solveInfo4()">ミスが多い</button><br>
+    <button class="button" onclick="solveInfo4()">無口</button><br>
+    <button class="button" onclick="solveInfo4Correct()">丁寧</button><br>
+
+    <button class="back-button" onclick="goBackToSolve2()">戻る</button>
+</div>
+
+<div class="container" id="solve4" style="display: none;">
+    <h1>Q4.男が提示した身分証の特徴は？</h1>
+
+    <button class="button" onclick="solveInfo5()">英語</button><br>
+    <button class="button" onclick="solveInfo5()">濡れている</button><br>
+    <button class="button" onclick="solveInfo5()">敗れている</button><br>
+    <button class="button" onclick="solveInfo5Correct()">期限切れ</button><br>
+    <button class="button" onclick="solveInfo5()">取得したて</button><br>
+    <button class="button" onclick="solveInfo5()">顔写真が無い</button><br>
+    <button class="button" onclick="solveInfo5()">偽造品</button><br>
+
+    <button class="back-button" onclick="goBackToSolve3()">戻る</button>
+</div>
+
+<div class="container" id="solve5" style="display: none;">
+    <h1>Q5.男は結局どうなった？</h1>
+
+    <button class="button" onclick="solveInfo6()">殺された</button><br>
+    <button class="button" onclick="solveInfo6Correct()">帰れなくなった</button><br>
+    <button class="button" onclick="solveInfo6()">寝た</button><br>
+    <button class="button" onclick="solveInfo6()">走り回った</button><br>
+    <button class="button" onclick="solveInfo6()">住民票を破棄した</button><br>
+    <button class="button" onclick="solveInfo6()">家族と再会した</button><br>
+    <button class="button" onclick="solveInfo6()">褒められた</button><br>
+
+    <button class="back-button" onclick="goBackToSolve4()">戻る</button>
+</div>
+
+
+<div class="container" id="solve6_1" style="display: none;">
+    <h1>まじめに答えていますか。</h1>
+    <button class="back-button" onclick="goBackToMainFromSolve()">初期画面へ戻る</button>
+</div>
+
+<div class="container" id="solve6_2" style="display: none;">
+    <h1>もっと考えてみましょう。</h1>
+    <button class="back-button" onclick="goBackToMainFromSolve()">初期画面へ戻る</button>
+</div>
+
+<div class="container" id="solve6_3" style="display: none;">
+    <h1>まだまだです。</h1>
+    <button class="back-button" onclick="goBackToMainFromSolve()">初期画面へ戻る</button>
+</div>
+
+<div class="container" id="solve6_4" style="display: none;">
+    <h1>もう少しですね。</h1>
+    <button class="back-button" onclick="goBackToMainFromSolve()">初期画面へ戻る</button>
+</div>
+
+<div class="container" id="solve6_5" style="display: none;">
+    <h1><span style="color: #ff6347;">正しいようです。</span></h1>
+    <button class="answer-button" onclick="answerInfo()">解説</button>
+    <button class="back-button" onclick="goBackToMainFromSolve()">初期画面へ戻る</button>
+</div>
+
+<div class="container" id="answer" style="display: none;">
+    <h1>解説<h1>
+    <p style="font-size: 18px;">男が受付の女に提示したのは期限切れの運転免許証だった。それだけならまだ住民票が取れないだけで済んだのだが、なんと男は車で来庁していたのである。免許更新を忘れていたのだろう。<br>
+        「すみません、こちら期限が切れているのですが、ひょっとして今日お車で、、、」<br>
+        「え、はい、、、」<br>
+        女は無免許運転を知ってしまった以上このまま返すわけにもいかず、ひどく困ったのであった。
+    </p> <!-- 小さい文字で説明を追加 -->
+    <button class="back-button" onclick="goBack()">初期画面へ戻る</button>
+</div>
+
+
+
+<div class="container" id="Choice1-info" style="display: none;">
+    <h1>住民票は、、、</h1>
+    <button class="button" onclick="showChoice1Details1()">大量</button><br>
+    <button class="button" onclick="showChoice1Details2()">獲得</button><br>
+    <button class="button" onclick="showChoice1_3Info()">言語</button><br>
+    <button class="button" onclick="showChoice1_4Info()">手数料</button><br>
+    <button class="button" onclick="showChoice1Details5()">電子ファイル</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+    <div class="container" id="Choice1Details1" style="display: none;">
+        <h1>住民票は大量に必要だった？<br><br><span style="font-size: 20px;">いいえ。<br>１枚で十分でした。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice1Details1()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice1Details2" style="display: none;">
+        <h1>住民票は獲得できた？<br><br><span style="color: orange; font-size: 40px;">良い質問です。</span><br><span style="font-size: 20px;">いいえ。<br>獲得できませんでした。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice1Details2()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice1_3-info" style="display: none;">
+        <h1>住民票の言語は、、、</h1>
+        <button class="button" onclick="showChoice1_3Details1()">日本語</button><br>
+        <button class="button" onclick="showChoice1_3Details2()">英語</button><br>
+        <button class="button" onclick="showChoice1_3Details3()">フランス語</button><br>
+        <button class="back-button" onclick="goBackFromChoice1_3Info()">戻る</button>
+    </div>
+
+             <div class="container" id="Choice1_3Details1" style="display: none;">
+                <h1>住民票の言語は日本語だった？<br><br><span style="font-size: 20px;">はい。<br>男は日本人でした。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_3Details1()">戻る</button>
+             </div>
+
+             <div class="container" id="Choice1_3Details2" style="display: none;">
+                <h1>住民票の言語は英語だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_3Details2()">戻る</button>
+             </div>
+
+             <div class="container" id="Choice1_3Details3" style="display: none;">
+                <h1>住民票の言語はフランス語だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_3Details3()">戻る</button>
+             </div>
+
+    <div class="container" id="Choice1_4-info" style="display: none;">
+        <h1>住民票の手数料は、、、</h1>
+        <button class="button" onclick="showChoice1_4Details1()">高い</button><br>
+        <button class="button" onclick="showChoice1_4Details2()">安い</button><br>
+        <button class="button" onclick="showChoice1_4Details3()">無料</button><br>
+        <button class="back-button" onclick="goBackFromChoice1_4Info()">戻る</button>
+    </div>
+
+             <div class="container" id="Choice1_4Details1" style="display: none;">
+                <h1>住民票の手数料は高い？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_4Details1()">戻る</button>
+             </div>
+
+             <div class="container" id="Choice1_4Details2" style="display: none;">
+                <h1>住民票の手数料は安い？<br><br><span style="font-size: 20px;">はい。<br>男のポケットマネーで十分取得できる値段でした。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_4Details2()">戻る</button>
+             </div>
+
+             <div class="container" id="Choice1_4Details3" style="display: none;">
+                <h1>住民票の手数料は無料？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+                <button class="back-button" onclick="goBackFromChoice1_4Details3()">戻る</button>
+             </div>
+
+    <div class="container" id="Choice1Details5" style="display: none;">
+        <h1>住民票は電子ファイルで取得しようとした？<br><br><span style="font-size: 20px;">いいえ。<br>紙で取得しようとしました。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice1Details5()">戻る</button>
+    </div>
+
+
+
+<div class="container" id="Choice2-info" style="display: none;">
+    <h1>市役所は、、、</h1>
+    <button class="button" onclick="showChoice2Details1()">広い</button><br>
+    <button class="button" onclick="showChoice2Details2()">混雑</button><br>
+    <button class="button" onclick="showChoice2Details3()">騒がしい</button><br>
+    <button class="button" onclick="showChoice2Details4()">遠い</button><br>
+    <button class="button" onclick="showChoice2Details5()">汚い</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+    <div class="container" id="Choice2Details1" style="display: none;">
+        <h1>市役所は広かった？<br><br><span style="font-size: 20px;">はい。<br>それなりに大きかったようです。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice2Details1()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice2Details2" style="display: none;">
+        <h1>市役所は混雑していた？<br><br><span style="font-size: 20px;">はい。<br>市役所っていつも混雑していますよね。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice2Details2()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice2Details3" style="display: none;">
+        <h1>市役所は騒がしかった？<br><br><span style="font-size: 20px;">いいえ。<br>いたって静かでした。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice2Details3()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice2Details4" style="display: none;">
+        <h1>市役所は遠かった？<br><br><span style="color: orange; font-size: 40px;">良い質問です。</span><br><span style="font-size: 20px;">はい。<br>男の家からそれなりに距離があったようです。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice2Details4()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice2Details5" style="display: none;">
+        <h1>市役所は汚かった？<br><br><span style="font-size: 20px;">いいえ。<br>清潔に保たれていました。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice2Details5()">戻る</button>
+    </div>
+
+
+
+<div class="container" id="Choice3-info" style="display: none;">
+    <h1>男は、、、</h1>
+    <button class="button" onclick="showChoice3_1Info()">態度</button><br>
+    <button class="button" onclick="showChoice3Details2()">独り</button><br>
+    <button class="button" onclick="showChoice3_3Info()">身分</button><br>
+    <button class="button" onclick="showChoice3Details4()">くさい</button><br>
+    <button class="button" onclick="showChoice3Details5()">騒がしい</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="Choice3_1-info" style="display: none;">
+    <h1>男の態度は、、、</h1>
+    <button class="button" onclick="showChoice3_1Details1()">横柄</button><br>
+    <button class="button" onclick="showChoice3_1Details2()">丁寧</button><br>
+    <button class="button" onclick="showChoice3_1Details3()">無愛想</button><br>
+    <button class="button" onclick="showChoice3_1Details4()">無口</button><br>
+    <button class="back-button" onclick="goBackFromChoice3_1Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice3_1Details1" style="display: none;">
+            <h1>男の態度は横柄だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_1Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_1Details2" style="display: none;">
+            <h1>男の態度は丁寧だった？<br><br><span style="font-size: 20px;">はい。<br>非常に丁寧な態度でした。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_1Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_1Details3" style="display: none;">
+            <h1>男の態度は無愛想だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_1Details3()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_1Details4" style="display: none;">
+            <h1>男の態度は無口だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_1Details4()">戻る</button>
+         </div>
+
+<div class="container" id="Choice3Details2" style="display: none;">
+    <h1>男は独りだった？<br><br><span style="font-size: 20px;">はい。<br>独りで市役所に来たようです。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice3Details2()">戻る</button>
+</div>
+
+<div class="container" id="Choice3_3-info" style="display: none;">
+    <h1>男の身分は、、、</h1>
+    <button class="button" onclick="showChoice3_3Details1()">偉い</button><br>
+    <button class="button" onclick="showChoice3_3Details2()">学生</button><br>
+    <button class="button" onclick="showChoice3_3Details3()">ニート</button><br>
+    <button class="button" onclick="showChoice3_3Details4()">子供</button><br>
+    <button class="back-button" onclick="goBackFromChoice3_3Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice3_3Details1" style="display: none;">
+            <h1>男の身分は偉かった？<br><br><span style="font-size: 20px;">いいえ。<br>男は一般人だったようです。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_3Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_3Details2" style="display: none;">
+            <h1>男の身分は学生だった？<br><br><span style="font-size: 20px;">いいえ。<br>男は社会人でした。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_3Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_3Details3" style="display: none;">
+            <h1>男はニートだった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_3Details3()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice3_3Details4" style="display: none;">
+            <h1>男は子供だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice3_3Details4()">戻る</button>
+         </div>
+
+<div class="container" id="Choice3Details4" style="display: none;">
+    <h1>男はくさかった？<br><br><span style="font-size: 20px;">いいえ。<br>まったくもってくさくありませんでした。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice3Details4()">戻る</button>
+</div>
+
+<div class="container" id="Choice3Details5" style="display: none;">
+    <h1>男は騒がしかった？<br><br><span style="font-size: 20px;">いいえ。<br>適切な音量で会話していました。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice3Details5()">戻る</button>
+</div>
+
+
+
+<div class="container" id="Choice4-info" style="display: none;">
+    <h1>手続きは、、、</h1>
+    <button class="button" onclick="showChoice4Details1()">事前予約</button><br>
+    <button class="button" onclick="showChoice4_2Info()">待ち時間</button><br>
+    <button class="button" onclick="showChoice4_3Info()">時間帯</button><br>
+    <button class="button" onclick="showChoice4Details4()">代行</button><br>
+    <button class="button" onclick="showChoice4Details5()">遂行</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="Choice4Details1" style="display: none;">
+    <h1>手続きは事前予約制だった？<br><br><span style="font-size: 20px;">いいえ。<br>男は当日に市役所で手続きをしたようです。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice4Details1()">戻る</button>
+</div>
+
+<div class="container" id="Choice4_2-info" style="display: none;">
+    <h1>手続きの待ち時間は、、、</h1>
+    <button class="button" onclick="showChoice4_2Details1()">無い</button><br>
+    <button class="button" onclick="showChoice4_2Details2()">短い</button><br>
+    <button class="button" onclick="showChoice4_2Details3()">長い</button><br>
+    <button class="back-button" onclick="goBackFromChoice4_2Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice4_2Details1" style="display: none;">
+            <h1>手続きの待ち時間は無かった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_2Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice4_2Details2" style="display: none;">
+            <h1>手続きの待ち時間は短かった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_2Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice4_2Details3" style="display: none;">
+            <h1>手続きの待ち時間は長かった？<br><br><span style="font-size: 20px;">はい。<br>男は呼び出されるまでそこそこ待ったようです。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_2Details3()">戻る</button>
+         </div>
+
+<div class="container" id="Choice4_3-info" style="display: none;">
+    <h1>手続きの時間帯は、、、</h1>
+    <button class="button" onclick="showChoice4_3Details1()">朝</button><br>
+    <button class="button" onclick="showChoice4_3Details2()">昼</button><br>
+    <button class="button" onclick="showChoice4_3Details3()">夜</button><br>
+    <button class="back-button" onclick="goBackFromChoice4_3Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice4_3Details1" style="display: none;">
+            <h1>手続きの時間帯は朝だった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_3Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice4_3Details2" style="display: none;">
+            <h1>手続きの時間帯は昼だった？<br><br><span style="font-size: 20px;">はい。<br>日差しが気持ちのよい時間帯でした。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_3Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice4_3Details3" style="display: none;">
+            <h1>手続きの時間帯は夜だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice4_3Details3()">戻る</button>
+         </div>
+
+<div class="container" id="Choice4Details4" style="display: none;">
+    <h1>手続きは誰かの代行だった？<br><br><span style="font-size: 20px;">いいえ。<br>男自身が欲しくて手続きをしたようです。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice4Details4()">戻る</button>
+</div>
+
+<div class="container" id="Choice4Details5" style="display: none;">
+    <h1>手続きは遂行された？<br><br><span style="color: orange; font-size: 40px;">良い質問です。</span><br><span style="font-size: 20px;">いいえ。<br>
+    </span><span style="font-size: 20px;">遂行されませんでした。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice4Details5()">戻る</button>
+</div>
+
+
+
+
+<div class="container" id="Choice5-info" style="display: none;">
+    <h1>受付は、、、</h1>
+    <button class="button" onclick="showChoice5_1Info()">数</button><br>
+    <button class="button" onclick="showChoice5Details2()">ベル</button><br>
+    <button class="button" onclick="showChoice5Details3()">ボールペン</button><br>
+    <button class="button" onclick="showChoice5Details4()">デスク</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="Choice5_1-info" style="display: none;">
+    <h1>受付の数は、、、</h1>
+    <button class="button" onclick="showChoice5_1Details1()">１つだけ</button><br>
+    <button class="button" onclick="showChoice5_1Details2()">少ない</button><br>
+    <button class="button" onclick="showChoice5_1Details3()">多い</button><br>
+    <button class="back-button" onclick="goBackFromChoice5_1Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice5_1Details1" style="display: none;">
+            <h1>受付の数は１つだけだった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice5_1Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice5_1Details2" style="display: none;">
+            <h1>受付の数は少なかった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice5_1Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice5_1Details3" style="display: none;">
+            <h1>受付の数は多かった？<br><br><span style="font-size: 20px;">はい。<br>それなりにたくさんありました。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice5_1Details3()">戻る</button>
+         </div>
+
+<div class="container" id="Choice5Details2" style="display: none;">
+    <h1>受付にはベルがあった？<br><br><span style="font-size: 20px;">はい。<br>何かあったときに他の職員を呼ぶためのものでした。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice5Details2()">戻る</button>
+</div>
+
+<div class="container" id="Choice5Details3" style="display: none;">
+    <h1>受付にはボールペンがあった？<br><br><span style="font-size: 20px;">はい。<br>その場で申請用紙を訂正できるようにペンが常備してありました。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice5Details3()">戻る</button>
+</div>
+
+<div class="container" id="Choice5Details4" style="display: none;">
+    <h1>受付にはデスクがあった？<br><br><span style="font-size: 20px;">はい。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice5Details4()">戻る</button>
+</div>
+
+
+<div class="container" id="Choice6-info" style="display: none;">
+    <h1>女は、、、</h1>
+    <button class="button" onclick="showChoice6_1Info()">対応</button><br>
+    <button class="button" onclick="showChoice6Details2()">名札</button><br>
+    <button class="button" onclick="showChoice6Details3()">くさい</button><br>
+    <button class="button" onclick="showChoice6_4Info()">服装</button><br>
+    <button class="button" onclick="showChoice6Details5()">笑顔</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="Choice6_1-info" style="display: none;">
+    <h1>女の対応は、、、</h1>
+    <button class="button" onclick="showChoice6_1Details1()">横柄</button><br>
+    <button class="button" onclick="showChoice6_1Details2()">丁寧</button><br>
+    <button class="button" onclick="showChoice6_1Details3()">無愛想</button><br>
+    <button class="button" onclick="showChoice6_1Details4()">無口</button><br>
+    <button class="back-button" onclick="goBackFromChoice6_1Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice6_1Details1" style="display: none;">
+            <h1>女の対応は横柄だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_1Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice6_1Details2" style="display: none;">
+            <h1>女の対応は丁寧だった？<br><br><span style="font-size: 20px;">はい。<br>非常に丁寧な対応でした。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_1Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice6_1Details3" style="display: none;">
+            <h1>女の対応は無愛想だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_1Details3()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice6_1Details4" style="display: none;">
+            <h1>女の対応は無口だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_1Details4()">戻る</button>
+         </div>
+
+<div class="container" id="Choice6Details2" style="display: none;">
+    <h1>女は名札をしていた？<br><br><span style="font-size: 20px;">はい。<br>名前が書いてありました。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice6Details2()">戻る</button>
+</div>
+
+<div class="container" id="Choice6Details3" style="display: none;">
+    <h1>女はくさかった？<br><br><span style="font-size: 20px;">いいえ。<br>まったくもってくさくありませんでした。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice6Details3()">戻る</button>
+</div>
+
+<div class="container" id="Choice6_4-info" style="display: none;">
+    <h1>女の服装は、、、</h1>
+    <button class="button" onclick="showChoice6_4Details1()">スーツ</button><br>
+    <button class="button" onclick="showChoice6_4Details2()">派手</button><br>
+    <button class="button" onclick="showChoice6_4Details3()">オフィスカジュアル</button><br>
+    <button class="back-button" onclick="goBackFromChoice6_4Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice6_4Details1" style="display: none;">
+            <h1>女の服装はスーツだった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_4Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice6_4Details2" style="display: none;">
+            <h1>女の服装は派手だった？<br><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_4Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice6_4Details3" style="display: none;">
+            <h1>女の服装はオフィスカジュアルだった？<br><br><span style="font-size: 20px;">はい。<br>職員はほぼ皆オフィスカジュアルだったようです。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice6_4Details3()">戻る</button>
+         </div>
+
+<div class="container" id="Choice6Details5" style="display: none;">
+    <h1>女は笑顔だった？<br><br><span style="font-size: 20px;">はい。<br>笑顔で対応していました。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice6Details5()">戻る</button>
+</div>
+
+
+
+<div class="container" id="Choice7-info" style="display: none;">
+    <h1>身分証は、、、</h1>
+    <button class="button" onclick="showChoice7Details1()">偽造</button><br>
+    <button class="button" onclick="showChoice7_2Info()">種類</button><br>
+    <button class="button" onclick="showChoice7_3Info()">状態</button><br>
+    <button class="button" onclick="showChoice7Details4()">顔写真付き</button><br>
+    <button class="button" onclick="showChoice7Details5()">他人</button><br>
+    <button class="back-button" onclick="goBack()">戻る</button>
+</div>
+
+<div class="container" id="Choice7Details1" style="display: none;">
+    <h1>身分証は偽造だった？<br><br><span style="font-size: 20px;">いいえ。<br>間違いなく本物でした。</span></h1>
+    <button class="back-button" onclick="goBackFromChoice7Details1()">戻る</button>
+</div>
+
+<div class="container" id="Choice7_2-info" style="display: none;">
+    <h1>身分証の種類は、、、</h1>
+    <button class="button" onclick="showChoice7_2Details1()">健康保険証</button><br>
+    <button class="button" onclick="showChoice7_2Details2()">パスポート</button><br>
+    <button class="button" onclick="showChoice7_2Details3()">学生証</button><br>
+    <button class="button" onclick="showChoice7_2Details4()">障害者手帳</button><br>
+    <button class="button" onclick="showChoice7_2Details5()">運転免許証</button><br>
+
+    <button class="back-button" onclick="goBackFromChoice7_2Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice7_2Details1" style="display: none;">
+            <h1>身分証の種類は健康保険証だった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_2Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_2Details2" style="display: none;">
+            <h1>身分証の種類はパスポートだった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_2Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_2Details3" style="display: none;">
+            <h1>身分証の種類は学生証だった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_2Details3()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_2Details4" style="display: none;">
+            <h1>身分証の種類は障害者手帳だった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_2Details4()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_2Details5" style="display: none;">
+            <h1>身分証の種類は運転免許証だった？<br><br><span style="color: red; font-size: 40px;">素晴らしい質問です。</span><br><span style="font-size: 20px;">はい。<br>
+                男は運転免許証を女に提示しました。<h1>
+                <button class="back-button" onclick="goBackFromChoice7_2Details5()">戻る</button>
+         </div>
+
+<div class="container" id="Choice7_3-info" style="display: none;">
+    <h1>身分証の状態は、、、</h1>
+    <button class="button" onclick="showChoice7_3Details1()">汚れ</button><br>
+    <button class="button" onclick="showChoice7_3Details2()">濡れ</button><br>
+    <button class="button" onclick="showChoice7_3Details3()">期限切れ</button><br>
+    <button class="button" onclick="showChoice7_3Details4()">破損</button><br>
+    <button class="button" onclick="showChoice7_3Details5()">ピカピカ</button><br>
+    <button class="back-button" onclick="goBackFromChoice7_3Info()">戻る</button>
+</div>
+
+         <div class="container" id="Choice7_3Details1" style="display: none;">
+            <h1>身分証の状態は汚れていた？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_3Details1()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_3Details2" style="display: none;">
+            <h1>身分証の状態は濡れていた？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_3Details2()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_3Details3" style="display: none;">
+            <h1>身分証の状態は期限切れだった？<br><br><span style="color: red; font-size: 40px;">素晴らしい質問です。</span><br><span style="font-size: 20px;">はい。<br>
+            男が提示した身分証は期限切れでした。<h1>
+            <button class="back-button" onclick="goBackFromChoice7_3Details3()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_3Details4" style="display: none;">
+            <h1>身分証の状態は破損していた？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_3Details4()">戻る</button>
+         </div>
+
+         <div class="container" id="Choice7_3Details5" style="display: none;">
+            <h1>身分証の状態はピカピカだった？<br><br></span><br><span style="font-size: 20px;">いいえ。</span></h1>
+            <button class="back-button" onclick="goBackFromChoice7_3Details5()">戻る</button>
+         </div>
+
+    <div class="container" id="Choice7Details4" style="display: none;">
+        <h1>身分証は顔写真付きだった？<br><br><span style="font-size: 20px;">はい。<br>顔写真が付いていました。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice7Details4()">戻る</button>
+    </div>
+
+    <div class="container" id="Choice7Details5" style="display: none;">
+        <h1>身分証は他人のものだった？<br><br><span style="font-size: 20px;">いいえ。<br>男本人のものでした。</span></h1>
+        <button class="back-button" onclick="goBackFromChoice7Details5()">戻る</button>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+let N = 0;
+let M = 0;
+
+let X = 0;//「回答する」で正解の選択肢を選ぶと１ずつ増える。ｘ＝５のとき「正しいようです」。
+let A = 0;
+let B = 0;
+let C = 0;
+let D = 0;
+let E = 0;
+
+//<button class="button" onclick="showChoice1Info()">カオリ</button>  ボタンの書き方
+
+    function showStory() {
+        const story = `<button class="button" onclick="showChoice1Info()">住民票</button>を取得しに<button class="button" onclick="showChoice2Info()">市役所</button>へやってきた<button class="button" onclick="showChoice3Info()">男</button>。<button class="button" onclick="showChoice4Info()">手続き</button>の中で<button class="button" onclick="showChoice3Info()">男</button>は、<button class="button" onclick="showChoice5Info()">受付</button>の<button class="button" onclick="showChoice6Info()">女</button>に<button class="button" onclick="showChoice7Info()">身分証</button>を提示した。すると、<button class="button" onclick="showChoice6Info()">女</button>はひどく困ってしまった。いったいなぜ？`;
+        
+        document.getElementById('story').innerHTML = story;
+        document.getElementById('n-display').innerText = N; // N の値を表示
+        document.getElementById('m-display').innerText = M; // M の値を表示
+//        document.getElementById('answer-button').style.display = 'block'; // 解説ボタンを表示
+        document.getElementById('wrong-button').style.display = 'block'; // 更新ボタンを表示
+//        document.getElementById('hint-button').style.display = 'block'; // ヒントボタンを表示
+        document.getElementById('solve-button').style.display = 'block'; // 回答するボタンを表示
+        document.getElementById('back-button').style.display = 'block'; // 戻るボタンを表示
+        document.getElementById('story-button').style.display = 'none'; // ストーリーを表示ボタンを隠す
+    }
+
+
+
+    function hintInfo() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('hint-container').style.display = 'block';
+    }
+
+    function answerInfo() {
+        X = 0;
+        A = 0;
+        B = 0;
+        C = 0;
+        D = 0;
+        E = 0;
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('answer').style.display = 'block';
+        document.getElementById('solve6_5').style.display = 'none';
+    }
+
+
+
+    function solveInfo1() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('solve1').style.display = 'block';
+    }
+
+    function solveInfo2() {
+        document.getElementById('solve1').style.display = 'none';
+        document.getElementById('solve2').style.display = 'block';
+    }
+
+    function solveInfo2Correct() {
+        A += 1;
+        document.getElementById('solve1').style.display = 'none';
+        document.getElementById('solve2').style.display = 'block';
+    }
+
+    function solveInfo3() {
+        document.getElementById('solve2').style.display = 'none';
+        document.getElementById('solve3').style.display = 'block';
+    }
+    function solveInfo3Correct() {
+        B += 1;
+        document.getElementById('solve2').style.display = 'none';
+        document.getElementById('solve3').style.display = 'block';
+    }
+
+    function solveInfo4() {
+        document.getElementById('solve3').style.display = 'none';
+        document.getElementById('solve4').style.display = 'block';
+    }
+    function solveInfo4Correct() {
+        C += 1;
+        document.getElementById('solve3').style.display = 'none';
+        document.getElementById('solve4').style.display = 'block';
+    }
+
+    function solveInfo5() {
+        document.getElementById('solve4').style.display = 'none';
+        document.getElementById('solve5').style.display = 'block';
+    }
+    function solveInfo5Correct() {
+        D += 1;
+        document.getElementById('solve4').style.display = 'none';
+        document.getElementById('solve5').style.display = 'block';
+    }
+
+    function solveInfo6() {
+        X = A+B+C+D+E;
+        if(X == 0){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_1').style.display = 'block';
+        }else if(X == 1){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_2').style.display = 'block';
+        }else if(X <= 3){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_3').style.display = 'block';
+        }else if(X == 4){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_4').style.display = 'block';
+        }else if(X == 5){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_5').style.display = 'block';
+        }
+    }
+
+    function solveInfo6Correct() {
+        E += 1;
+        X = A+B+C+D+E;
+        if(X == 0){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_1').style.display = 'block';
+        }else if(X == 1){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_2').style.display = 'block';
+        }else if(X <= 3){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_3').style.display = 'block';
+        }else if(X == 4){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_4').style.display = 'block';
+        }else if(X == 5){
+            document.getElementById('solve5').style.display = 'none';
+            document.getElementById('solve6_5').style.display = 'block';
+        }
+    }
+
+
+
+    function showChoice1Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+
+
+    function showChoice1Details1() {
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice1Details1').style.display = 'block';
+    }
+
+    function showChoice1Details2() {
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice1Details2').style.display = 'block';
+    }
+
+    function showChoice1_3Info() {
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice1_3-info').style.display = 'block';
+    }
+
+            function showChoice1_3Details1() {
+                document.getElementById('Choice1_3-info').style.display = 'none';
+                document.getElementById('Choice1_3Details1').style.display = 'block';
+            }
+
+            function showChoice1_3Details2() {
+                document.getElementById('Choice1_3-info').style.display = 'none';
+                document.getElementById('Choice1_3Details2').style.display = 'block';
+            }
+
+            function showChoice1_3Details3() {
+                document.getElementById('Choice1_3-info').style.display = 'none';
+                document.getElementById('Choice1_3Details3').style.display = 'block';
+            }
+
+    function showChoice1_4Info() {
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice1_4-info').style.display = 'block';
+    }
+
+            function showChoice1_4Details1() {
+                document.getElementById('Choice1_4-info').style.display = 'none';
+                document.getElementById('Choice1_4Details1').style.display = 'block';
+            }
+
+            function showChoice1_4Details2() {
+                document.getElementById('Choice1_4-info').style.display = 'none';
+                document.getElementById('Choice1_4Details2').style.display = 'block';
+            }
+
+            function showChoice1_4Details3() {
+                document.getElementById('Choice1_4-info').style.display = 'none';
+                document.getElementById('Choice1_4Details3').style.display = 'block';
+            }
+
+    function showChoice1Details5() {
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice1Details5').style.display = 'block';
+    }
+
+
+
+
+
+    function showChoice2Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+
+    function showChoice2Details1() {
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice2Details1').style.display = 'block';
+    }
+
+    function showChoice2Details2() {
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice2Details2').style.display = 'block';
+    }
+
+    function showChoice2Details3() {
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice2Details3').style.display = 'block';
+    }
+
+    function showChoice2Details4() {
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice2Details4').style.display = 'block';
+    }
+
+    function showChoice2Details5() {
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice2Details5').style.display = 'block';
+    }
+
+
+
+    function showChoice3Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+
+    function showChoice3_1Info() {
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice3_1-info').style.display = 'block';
+    }
+
+            function showChoice3_1Details1() {
+                document.getElementById('Choice3_1-info').style.display = 'none';
+                document.getElementById('Choice3_1Details1').style.display = 'block';
+            }
+
+            function showChoice3_1Details2() {
+                document.getElementById('Choice3_1-info').style.display = 'none';
+                document.getElementById('Choice3_1Details2').style.display = 'block';
+            }
+
+            function showChoice3_1Details3() {
+                document.getElementById('Choice3_1-info').style.display = 'none';
+                document.getElementById('Choice3_1Details3').style.display = 'block';
+            }
+
+            function showChoice3_1Details4() {
+                document.getElementById('Choice3_1-info').style.display = 'none';
+                document.getElementById('Choice3_1Details4').style.display = 'block';
+            }
+
+
+    function showChoice3Details2() {
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice3Details2').style.display = 'block';
+    }
+
+    function showChoice3_3Info() {
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice3_3-info').style.display = 'block';
+    }
+
+            function showChoice3_3Details1() {
+                document.getElementById('Choice3_3-info').style.display = 'none';
+                document.getElementById('Choice3_3Details1').style.display = 'block';
+            }
+
+            function showChoice3_3Details2() {
+                document.getElementById('Choice3_3-info').style.display = 'none';
+                document.getElementById('Choice3_3Details2').style.display = 'block';
+            }
+
+            function showChoice3_3Details3() {
+                document.getElementById('Choice3_3-info').style.display = 'none';
+                document.getElementById('Choice3_3Details3').style.display = 'block';
+            }
+
+            function showChoice3_3Details4() {
+                document.getElementById('Choice3_3-info').style.display = 'none';
+                document.getElementById('Choice3_3Details4').style.display = 'block';
+            }
+
+    function showChoice3Details4() {
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice3Details4').style.display = 'block';
+    }
+
+    function showChoice3Details5() {
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice3Details5').style.display = 'block';
+    }
+
+
+
+    function showChoice4Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+    function showChoice4Details1() {
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice4Details1').style.display = 'block';
+    }
+
+    function showChoice4_2Info() {
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice4_2-info').style.display = 'block';
+    }
+
+            function showChoice4_2Details1() {
+                document.getElementById('Choice4_2-info').style.display = 'none';
+                document.getElementById('Choice4_2Details1').style.display = 'block';
+            }
+
+            function showChoice4_2Details2() {
+                document.getElementById('Choice4_2-info').style.display = 'none';
+                document.getElementById('Choice4_2Details2').style.display = 'block';
+            }
+
+            function showChoice4_2Details3() {
+                document.getElementById('Choice4_2-info').style.display = 'none';
+                document.getElementById('Choice4_2Details3').style.display = 'block';
+            }
+
+    function showChoice4_3Info() {
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice4_3-info').style.display = 'block';
+    }
+
+            function showChoice4_3Details1() {
+                document.getElementById('Choice4_3-info').style.display = 'none';
+                document.getElementById('Choice4_3Details1').style.display = 'block';
+            }
+
+            function showChoice4_3Details2() {
+                document.getElementById('Choice4_3-info').style.display = 'none';
+                document.getElementById('Choice4_3Details2').style.display = 'block';
+            }
+
+            function showChoice4_3Details3() {
+                document.getElementById('Choice4_3-info').style.display = 'none';
+                document.getElementById('Choice4_3Details3').style.display = 'block';
+            }
+
+    function showChoice4Details4() {
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice4Details4').style.display = 'block';
+    }
+
+    function showChoice4Details5() {
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice4Details5').style.display = 'block';
+    }
+
+
+
+    function showChoice5Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+    function showChoice5_1Info() {
+        document.getElementById('Choice5-info').style.display = 'none';
+        document.getElementById('Choice5_1-info').style.display = 'block';
+    }
+
+            function showChoice5_1Details1() {
+                document.getElementById('Choice5_1-info').style.display = 'none';
+                document.getElementById('Choice5_1Details1').style.display = 'block';
+            }
+
+            function showChoice5_1Details2() {
+                document.getElementById('Choice5_1-info').style.display = 'none';
+                document.getElementById('Choice5_1Details2').style.display = 'block';
+            }
+
+            function showChoice5_1Details3() {
+                document.getElementById('Choice5_1-info').style.display = 'none';
+                document.getElementById('Choice5_1Details3').style.display = 'block';
+            }
+
+    function showChoice5Details2() {
+        document.getElementById('Choice5-info').style.display = 'none';
+        document.getElementById('Choice5Details2').style.display = 'block';
+    }
+
+    function showChoice5Details3() {
+        document.getElementById('Choice5-info').style.display = 'none';
+        document.getElementById('Choice5Details3').style.display = 'block';
+    }
+
+    function showChoice5Details4() {
+        document.getElementById('Choice5-info').style.display = 'none';
+        document.getElementById('Choice5Details4').style.display = 'block';
+    }
+
+
+
+    function showChoice6Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+    function showChoice6_1Info() {
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice6_1-info').style.display = 'block';
+    }
+
+            function showChoice6_1Details1() {
+                document.getElementById('Choice6_1-info').style.display = 'none';
+                document.getElementById('Choice6_1Details1').style.display = 'block';
+            }
+
+            function showChoice6_1Details2() {
+                document.getElementById('Choice6_1-info').style.display = 'none';
+                document.getElementById('Choice6_1Details2').style.display = 'block';
+            }
+
+            function showChoice6_1Details3() {
+                document.getElementById('Choice6_1-info').style.display = 'none';
+                document.getElementById('Choice6_1Details3').style.display = 'block';
+            }
+
+            function showChoice6_1Details4() {
+                document.getElementById('Choice6_1-info').style.display = 'none';
+                document.getElementById('Choice6_1Details4').style.display = 'block';
+            }
+
+    function showChoice6Details2() {
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice6Details2').style.display = 'block';
+    }
+
+    function showChoice6Details3() {
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice6Details3').style.display = 'block';
+    }
+
+    function showChoice6_4Info() {
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice6_4-info').style.display = 'block';
+    }
+
+            function showChoice6_4Details1() {
+                document.getElementById('Choice6_4-info').style.display = 'none';
+                document.getElementById('Choice6_4Details1').style.display = 'block';
+            }
+
+            function showChoice6_4Details2() {
+                document.getElementById('Choice6_4-info').style.display = 'none';
+                document.getElementById('Choice6_4Details2').style.display = 'block';
+            }
+
+            function showChoice6_4Details3() {
+                document.getElementById('Choice6_4-info').style.display = 'none';
+                document.getElementById('Choice6_4Details3').style.display = 'block';
+            }
+
+    function showChoice6Details5() {
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice6Details5').style.display = 'block';
+    }
+
+
+
+    function showChoice7Info() {
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+    function showChoice7Details1() {
+        document.getElementById('Choice7-info').style.display = 'none';
+        document.getElementById('Choice7Details1').style.display = 'block';
+    }
+
+    function showChoice7_2Info() {
+        document.getElementById('Choice7-info').style.display = 'none';
+        document.getElementById('Choice7_2-info').style.display = 'block';
+    }
+
+            function showChoice7_2Details1() {
+                document.getElementById('Choice7_2-info').style.display = 'none';
+                document.getElementById('Choice7_2Details1').style.display = 'block';
+            }
+
+            function showChoice7_2Details2() {
+                document.getElementById('Choice7_2-info').style.display = 'none';
+                document.getElementById('Choice7_2Details2').style.display = 'block';
+            }
+            
+            function showChoice7_2Details3() {
+                document.getElementById('Choice7_2-info').style.display = 'none';
+                document.getElementById('Choice7_2Details3').style.display = 'block';
+            }
+            
+            function showChoice7_2Details4() {
+                document.getElementById('Choice7_2-info').style.display = 'none';
+                document.getElementById('Choice7_2Details4').style.display = 'block';
+            }
+
+            function showChoice7_2Details5() {
+                document.getElementById('Choice7_2-info').style.display = 'none';
+                document.getElementById('Choice7_2Details5').style.display = 'block';
+            }
+
+    function showChoice7_3Info() {
+        document.getElementById('Choice7-info').style.display = 'none';
+        document.getElementById('Choice7_3-info').style.display = 'block';
+    }
+
+    function showChoice7_3Details1() {
+                document.getElementById('Choice7_3-info').style.display = 'none';
+                document.getElementById('Choice7_3Details1').style.display = 'block';
+            }
+
+            function showChoice7_3Details2() {
+                document.getElementById('Choice7_3-info').style.display = 'none';
+                document.getElementById('Choice7_3Details2').style.display = 'block';
+            }
+            
+            function showChoice7_3Details3() {
+                document.getElementById('Choice7_3-info').style.display = 'none';
+                document.getElementById('Choice7_3Details3').style.display = 'block';
+            }
+            
+            function showChoice7_3Details4() {
+                document.getElementById('Choice7_3-info').style.display = 'none';
+                document.getElementById('Choice7_3Details4').style.display = 'block';
+            }
+
+            function showChoice7_3Details5() {
+                document.getElementById('Choice7_3-info').style.display = 'none';
+                document.getElementById('Choice7_3Details5').style.display = 'block';
+            }
+
+    function showChoice7Details4() {
+        document.getElementById('Choice7-info').style.display = 'none';
+        document.getElementById('Choice7Details4').style.display = 'block';
+    }
+
+    function showChoice7Details5() {
+        document.getElementById('Choice7-info').style.display = 'none';
+        document.getElementById('Choice7Details5').style.display = 'block';
+    }
+
+
+
+
+
+
+
+
+
+
+    function goBackToSolve1() {
+        A = 0;
+        document.getElementById('solve2').style.display = 'none';
+        document.getElementById('solve1').style.display = 'block';
+    }
+
+    function goBackToSolve2() {
+        B = 0;
+        document.getElementById('solve3').style.display = 'none';
+        document.getElementById('solve2').style.display = 'block';
+    }
+
+    function goBackToSolve3() {
+        C = 0;
+        document.getElementById('solve4').style.display = 'none';
+        document.getElementById('solve3').style.display = 'block';
+    }
+
+    function goBackToSolve4() {
+        D = 0;
+        document.getElementById('solve5').style.display = 'none';
+        document.getElementById('solve4').style.display = 'block';
+    }
+
+    function goBackToSolve5() {
+        E = 0;
+        document.getElementById('solve6').style.display = 'none';
+        document.getElementById('solve5').style.display = 'block';
+    }
+
+
+
+    function goBackToMainFromSolve() {
+        X = 0;
+        A = 0;
+        B = 0;
+        C = 0;
+        D = 0;
+        E = 0;
+        M += 1;
+        document.getElementById('solve6_1').style.display = 'none';
+        document.getElementById('solve6_2').style.display = 'none';
+        document.getElementById('solve6_3').style.display = 'none';
+        document.getElementById('solve6_4').style.display = 'none';
+        document.getElementById('solve6_5').style.display = 'none';
+        document.getElementById('main-container').style.display = 'block';
+    }
+
+
+
+    function goBackFromChoice1Details1() {
+        N += 1;
+        document.getElementById('Choice1Details1').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+
+    function goBackFromChoice1Details2() {
+        N += 1;
+        document.getElementById('Choice1Details2').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+    function goBackFromChoice1_3Info() {
+        document.getElementById('Choice1_3-info').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+            function goBackFromChoice1_3Details1() {
+                N += 1;
+                document.getElementById('Choice1_3Details1').style.display = 'none';
+                document.getElementById('Choice1_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice1_3Details2() {
+                N += 1;
+                document.getElementById('Choice1_3Details2').style.display = 'none';
+                document.getElementById('Choice1_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice1_3Details3() {
+                N += 1;
+                document.getElementById('Choice1_3Details3').style.display = 'none';
+                document.getElementById('Choice1_3-info').style.display = 'block';
+            }
+
+    function goBackFromChoice1_4Info() {
+        document.getElementById('Choice1_4-info').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+            function goBackFromChoice1_4Details1() {
+                N += 1;
+                document.getElementById('Choice1_4Details1').style.display = 'none';
+                document.getElementById('Choice1_4-info').style.display = 'block';
+            }
+
+            function goBackFromChoice1_4Details2() {
+                N += 1;
+                document.getElementById('Choice1_4Details2').style.display = 'none';
+                document.getElementById('Choice1_4-info').style.display = 'block';
+            }
+
+            function goBackFromChoice1_4Details3() {
+                N += 1;
+                document.getElementById('Choice1_4Details3').style.display = 'none';
+                document.getElementById('Choice1_4-info').style.display = 'block';
+            }
+
+    function goBackFromChoice1Details5() {
+        N += 1;
+        document.getElementById('Choice1Details5').style.display = 'none';
+        document.getElementById('Choice1-info').style.display = 'block';
+    }
+
+
+
+
+
+    function goBackFromChoice2Details1() {
+        N += 1;
+        document.getElementById('Choice2Details1').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+    function goBackFromChoice2Details2() {
+        N += 1;
+        document.getElementById('Choice2Details2').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+    function goBackFromChoice2Details3() {
+        N += 1;
+        document.getElementById('Choice2Details3').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+    function goBackFromChoice2Details4() {
+        N += 1;
+        document.getElementById('Choice2Details4').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+    function goBackFromChoice2Details5() {
+        N += 1;
+        document.getElementById('Choice2Details5').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'block';
+    }
+
+
+        function goBackFromChoice3_1Info() {
+        document.getElementById('Choice3_1-info').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+            function goBackFromChoice3_1Details1() {
+                N += 1;
+                document.getElementById('Choice3_1Details1').style.display = 'none';
+                document.getElementById('Choice3_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_1Details2() {
+                N += 1;
+                document.getElementById('Choice3_1Details2').style.display = 'none';
+                document.getElementById('Choice3_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_1Details3() {
+                N += 1;
+                document.getElementById('Choice3_1Details3').style.display = 'none';
+                document.getElementById('Choice3_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_1Details4() {
+                N += 1;
+                document.getElementById('Choice3_1Details4').style.display = 'none';
+                document.getElementById('Choice3_1-info').style.display = 'block';
+            }
+
+
+    function goBackFromChoice3Details2() {
+        N += 1;
+        document.getElementById('Choice3Details2').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+    function goBackFromChoice3_3Info() {
+        document.getElementById('Choice3_3-info').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+            function goBackFromChoice3_3Details1() {
+                N += 1;
+                document.getElementById('Choice3_3Details1').style.display = 'none';
+                document.getElementById('Choice3_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_3Details2() {
+                N += 1;
+                document.getElementById('Choice3_3Details2').style.display = 'none';
+                document.getElementById('Choice3_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_3Details3() {
+                N += 1;
+                document.getElementById('Choice3_3Details3').style.display = 'none';
+                document.getElementById('Choice3_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice3_3Details4() {
+                N += 1;
+                document.getElementById('Choice3_3Details4').style.display = 'none';
+                document.getElementById('Choice3_3-info').style.display = 'block';
+            }
+
+    function goBackFromChoice3Details4() {
+        N += 1;
+        document.getElementById('Choice3Details4').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+    function goBackFromChoice3Details5() {
+        N += 1;
+        document.getElementById('Choice3Details5').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'block';
+    }
+
+    function goBackFromChoice4Details1() {
+        N += 1;
+        document.getElementById('Choice4Details1').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+    function goBackFromChoice4_2Info() {
+        document.getElementById('Choice4_2-info').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+            function goBackFromChoice4_2Details1() {
+                N += 1;
+                document.getElementById('Choice4_2Details1').style.display = 'none';
+                document.getElementById('Choice4_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice4_2Details2() {
+                N += 1;
+                document.getElementById('Choice4_2Details2').style.display = 'none';
+                document.getElementById('Choice4_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice4_2Details3() {
+                N += 1;
+                document.getElementById('Choice4_2Details3').style.display = 'none';
+                document.getElementById('Choice4_2-info').style.display = 'block';
+            }
+
+    function goBackFromChoice4_3Info() {
+        document.getElementById('Choice4_3-info').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+            function goBackFromChoice4_3Details1() {
+                N += 1;
+                document.getElementById('Choice4_3Details1').style.display = 'none';
+                document.getElementById('Choice4_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice4_3Details2() {
+                N += 1;
+                document.getElementById('Choice4_3Details2').style.display = 'none';
+                document.getElementById('Choice4_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice4_3Details3() {
+                N += 1;
+                document.getElementById('Choice4_3Details3').style.display = 'none';
+                document.getElementById('Choice4_3-info').style.display = 'block';
+            }
+
+
+    function goBackFromChoice4Details4() {
+        N += 1;
+        document.getElementById('Choice4Details4').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+    function goBackFromChoice4Details5() {
+        N += 1;
+        document.getElementById('Choice4Details5').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'block';
+    }
+
+
+
+    function goBackFromChoice5_1Info() {
+        document.getElementById('Choice5_1-info').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+            function goBackFromChoice5_1Details1() {
+                N += 1;
+                document.getElementById('Choice5_1Details1').style.display = 'none';
+                document.getElementById('Choice5_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice5_1Details2() {
+                N += 1;
+                document.getElementById('Choice5_1Details2').style.display = 'none';
+                document.getElementById('Choice5_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice5_1Details3() {
+                N += 1;
+                document.getElementById('Choice5_1Details3').style.display = 'none';
+                document.getElementById('Choice5_1-info').style.display = 'block';
+            }
+
+    function goBackFromChoice5Details2() {
+        N += 1;
+        document.getElementById('Choice5Details2').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+    function goBackFromChoice5Details3() {
+        N += 1;
+        document.getElementById('Choice5Details3').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+    function goBackFromChoice5Details4() {
+        N += 1;
+        document.getElementById('Choice5Details4').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+    function goBackFromChoice5Details5() {
+        N += 1;
+        document.getElementById('Choice5Details5').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'block';
+    }
+
+
+
+    function goBackFromChoice6_1Info() {
+        document.getElementById('Choice6_1-info').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+            function goBackFromChoice6_1Details1() {
+                N += 1;
+                document.getElementById('Choice6_1Details1').style.display = 'none';
+                document.getElementById('Choice6_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice6_1Details2() {
+                N += 1;
+                document.getElementById('Choice6_1Details2').style.display = 'none';
+                document.getElementById('Choice6_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice6_1Details3() {
+                N += 1;
+                document.getElementById('Choice6_1Details3').style.display = 'none';
+                document.getElementById('Choice6_1-info').style.display = 'block';
+            }
+
+            function goBackFromChoice6_1Details4() {
+                N += 1;
+                document.getElementById('Choice6_1Details4').style.display = 'none';
+                document.getElementById('Choice6_1-info').style.display = 'block';
+            }
+
+    function goBackFromChoice6Details2() {
+        N += 1;
+        document.getElementById('Choice6Details2').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+    function goBackFromChoice6Details3() {
+        N += 1;
+        document.getElementById('Choice6Details3').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+    function goBackFromChoice6_4Info() {
+        document.getElementById('Choice6_4-info').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+            function goBackFromChoice6_4Details1() {
+                N += 1;
+                document.getElementById('Choice6_4Details1').style.display = 'none';
+                document.getElementById('Choice6_4-info').style.display = 'block';
+            }
+
+            function goBackFromChoice6_4Details2() {
+                N += 1;
+                document.getElementById('Choice6_4Details2').style.display = 'none';
+                document.getElementById('Choice6_4-info').style.display = 'block';
+            }
+
+            function goBackFromChoice6_4Details3() {
+                N += 1;
+                document.getElementById('Choice6_4Details3').style.display = 'none';
+                document.getElementById('Choice6_4-info').style.display = 'block';
+            }
+
+    function goBackFromChoice6Details5() {
+        N += 1;
+        document.getElementById('Choice6Details5').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'block';
+    }
+
+
+
+    function goBackFromChoice7Details1() {
+        N += 1;
+        document.getElementById('Choice7Details1').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+    function goBackFromChoice7_2Info() {
+        document.getElementById('Choice7_2-info').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+            function goBackFromChoice7_2Details1() {
+                N += 1;
+                document.getElementById('Choice7_2Details1').style.display = 'none';
+                document.getElementById('Choice7_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_2Details2() {
+                N += 1;
+                document.getElementById('Choice7_2Details2').style.display = 'none';
+                document.getElementById('Choice7_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_2Details3() {
+                N += 1;
+                document.getElementById('Choice7_2Details3').style.display = 'none';
+                document.getElementById('Choice7_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_2Details4() {
+                N += 1;
+                document.getElementById('Choice7_2Details4').style.display = 'none';
+                document.getElementById('Choice7_2-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_2Details5() {
+                N += 1;
+                document.getElementById('Choice7_2Details5').style.display = 'none';
+                document.getElementById('Choice7_2-info').style.display = 'block';
+            }
+
+    function goBackFromChoice7_3Info() {
+        document.getElementById('Choice7_3-info').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+            function goBackFromChoice7_3Details1() {
+                N += 1;
+                document.getElementById('Choice7_3Details1').style.display = 'none';
+                document.getElementById('Choice7_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_3Details2() {
+                N += 1;
+                document.getElementById('Choice7_3Details2').style.display = 'none';
+                document.getElementById('Choice7_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_3Details3() {
+                N += 1;
+                document.getElementById('Choice7_3Details3').style.display = 'none';
+                document.getElementById('Choice7_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_3Details4() {
+                N += 1;
+                document.getElementById('Choice7_3Details4').style.display = 'none';
+                document.getElementById('Choice7_3-info').style.display = 'block';
+            }
+
+            function goBackFromChoice7_3Details5() {
+                N += 1;
+                document.getElementById('Choice7_3Details5').style.display = 'none';
+                document.getElementById('Choice7_3-info').style.display = 'block';
+            }
+
+
+
+    function goBackFromChoice7Details4() {
+        N += 1;
+        document.getElementById('Choice7Details4').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+    function goBackFromChoice7Details5() {
+        N += 1;
+        document.getElementById('Choice7Details5').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'block';
+    }
+
+
+
+
+
+
+
+
+
+    function goBack() {
+        A = 0;
+        document.getElementById('hint-container').style.display = 'none';
+        document.getElementById('answer').style.display = 'none';
+        document.getElementById('solve1').style.display = 'none';
+
+        document.getElementById('Choice1-info').style.display = 'none';
+        document.getElementById('Choice2-info').style.display = 'none';
+        document.getElementById('Choice3-info').style.display = 'none';
+        document.getElementById('Choice4-info').style.display = 'none';
+        document.getElementById('Choice5-info').style.display = 'none';
+        document.getElementById('Choice6-info').style.display = 'none';
+        document.getElementById('Choice7-info').style.display = 'none';
+        
+        document.getElementById('main-container').style.display = 'block';
+    }
+
+
+
+    function goBackToMain() {
+        document.getElementById('story-button').style.display = 'block'; // ストーリーを表示ボタンを表示
+        document.getElementById('main-container').style.display = 'block';
+        document.getElementById('answer-button').style.display = 'none'; // 解説ボタンを隠す
+        document.getElementById('hint-button').style.display = 'none'; // ヒントボタンを隠す
+        document.getElementById('solve-button').style.display = 'none'; // 回答するボタンを隠す
+        document.getElementById('back-button').style.display = 'none'; // 戻るボタンを隠す
+        document.getElementById('wrong-button').style.display = 'none'; // 更新ボタンを隠す
+        document.getElementById('story').innerHTML = ''; // ストーリーをクリア
+    }
+
+</script>
+</body>
+</html>
